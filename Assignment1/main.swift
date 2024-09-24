@@ -1,11 +1,22 @@
-//
-//  main.swift
-//  Assignment1
-//
-//  Created by Volodya  on 24.09.2024.
-//
-
 import Foundation
 
-print("Hello, World!")
+let testData = [35, 12, 43, 8, 51, 27, 19, 3, 47, 30]
 
+func Gnome(numbers: inout [Int]) {
+    var position = 0
+    
+    while position < numbers.count {
+        if position == 0 || numbers[position] >= numbers[position - 1] {
+            position += 1
+        }
+        else
+        {
+            numbers.swapAt(position, position - 1)
+            position -= 1
+        }
+    }
+}
+
+var sortedArray = testData
+Gnome(numbers: &sortedArray)
+print(sortedArray)
