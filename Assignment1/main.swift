@@ -1,22 +1,24 @@
 import Foundation
 
-let testData = (1...10000).map { _ in Int.random(in: 1...10000)}
+struct Scores: Codable {
+    let Math: Int
+    let Physics: Int
+    let Chemistry: Int
+}
 
-//func Gnome(numbers: inout [Int]) {
-    //var position = 0
-    
-    //while position < numbers.count {
-        //if position == 0 || numbers[position] >= numbers[position - 1] {
-            //position += 1
-        //}
-        //else
-        //{
-            //numbers.swapAt(position, position - 1)
-            //position -= 1
-        //}
-    //}
-//}
+struct Address: Codable {
+    let street: String
+    let city: String
+    let postalCode: String
+}
 
-var sortedArray = testData.sorted()
-//Gnome(numbers: &sortedArray)
-print(sortedArray)
+struct Student: Codable {
+    let id: Int
+    let name: String
+    let age: Int
+    let subjects: [String]
+    let address: Address
+    let scores: Scores
+    let hasScholarship: Bool
+    let graduationYear: Int
+}
