@@ -22,3 +22,25 @@ struct Student: Codable {
     let hasScholarship: Bool
     let graduationYear: Int
 }
+
+struct List: Codable {
+    let students: [Student]
+}
+
+class ModelParser {
+    func JSONReader(filename: String) {
+        let getPath = URL(filePath: FileManager.default.currentDirectoryPath, directoryHint: .isDirectory)
+        let path = URL(filePath: filename, relativeTo: getPath).appendingPathExtension("json")
+        
+        do {
+            let data = try Data(contentsOf: path)
+            let decoder = JSONDecoder()
+            let List = try decoder.decode(List.self, from: data)
+            
+            //printInformation(students: studentsList.students)
+        }
+        catch{
+            print("Could not open the file")
+        }
+    }
+}
