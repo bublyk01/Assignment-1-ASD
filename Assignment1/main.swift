@@ -37,38 +37,20 @@ class ModelParser {
             let decoder = JSONDecoder()
             let list = try decoder.decode(List.self, from: data)
             
-            printInformation(students: list.students)
+            HighestAge(students: list.students)
+            
         } catch {
             print("Could not open the .json file: \(error)")
         }
     }
     
-    private func printInformation(students: [Student]) {
-        for student in students {
-            print("\nStudent ID: \(student.id)")
-            print("Name: \(student.name)")
-            print("Age: \(String(describing: student.age))")
-            print("Subjects: \(String(describing: student.subjects?.joined(separator: ", ")))")
-            print("Address: \(String(describing: student.address?.street)), \(String(describing: student.address?.city)), \(String(describing: student.address?.postalCode))")
-            print("Scores:")
-            if let scores = student.scores {
-                print("\tMath: \(String(describing: scores.Math))")
-                print("\tPhysics: \(String(describing: scores.Physics))")
-                if let chemistryScore = scores.Chemistry {
-                    print("\tChemistry: \(chemistryScore)")
-                } else {
-                    print("\tChemistry: N/A")
-                }
-            } else {
-                print("\tScores: N/A")
-            }
-
-            if let hasScholarship = student.hasScholarship {
-                print("Has Scholarship: \(hasScholarship ? "Yes" : "No")")
-            } else {
-                print("Has Scholarship: N/A")
-            }
-            print("Graduation Year: \(student.graduationYear)")
+    func HighestAge(students: [Student]) {
+        let nonNil = students.filter { $0.age != nil }
+        
+        if let highestAge = nonNil.max(by: { $0.age! < $1.age! }) {
+            print("Student: \(highestAge.name) had the highest age of \(highestAge.age!)")
+        } else {
+            print("No valid students found with a non-nil age.")
         }
     }
 }
